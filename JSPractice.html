@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>JSPractice</title>
+	</head>
+	<body>
+	</body>
+</html>
+<script>
+	var str = "madam";
+	function huiwen(str){
+		var arr = str.split("");
+		console.log(arr);
+		var newArr = arr.reverse();
+		console.log(newArr);
+		var strArr = newArr.join("");
+		console.log(strArr);
+		if(str == strArr){
+			return "this is huiwen";
+		} else {
+			return "this is no huiwen";
+		}
+	}
+</script>

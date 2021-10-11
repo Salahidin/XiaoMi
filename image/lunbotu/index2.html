@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>轮播图</title>
+	<style type="text/css">
+		body,ul,ol,li{
+			margin: 0;
+			border: 0;
+			padding:0;
+		}
+		#div1 ul li img{
+			height: 300px;
+			width: 500px;
+		}
+		@font-face {
+		  font-family: 'iconfont';
+		  src: url('iconfont/iconfont.eot');
+		  src: url('iconfont/iconfont.eot?#iefix') format('embedded-opentype'),
+		      url('iconfont/iconfont.woff2') format('woff2'),
+		      url('iconfont/iconfont.woff') format('woff'),
+		      url('iconfont/iconfont.ttf') format('truetype'),
+		      url('iconfont/iconfont.svg#iconfont') format('svg');
+		}
+		.iconfont {
+		  font-family: "iconfont" !important;
+		  font-size: 16px;
+		  font-weight: bold;
+		  font-style: normal;
+		  -webkit-font-smoothing: antialiased;
+		  -moz-osx-font-smoothing: grayscale;
+		  
+		}
+		#div1{
+			top: 30px;
+			height: 300px;
+			width: 500px;
+			margin: 0 auto;
+			position: relative;
+			overflow: hidden;
+		}
+		#div1 ul{
+			height: 300px;
+			width: 1500px;
+			position: absolute;
+			list-style-type: none;
+			/* transform: translateX(-500px); */
+			transition: all 1s;
+		}
+		#div1 ul li{
+			height: 300px;
+			width: 500px;
+			float: left;
+		}
+		#div1 ol{
+			width: 100px;
+			height: 15px;
+			position: absolute;
+			display: flex;
+			list-style-type: none;
+			justify-content: space-between;
+			bottom: 30px;
+			right: 40%;
+		}
+			
+		#div1 ol li{
+			width: 15px;
+			height: 15px;
+			background-color: #fff;
+			border-radius: 50%;
+		}
+		.on{
+			background-color: #FF0000 !important;
+		}
+		
+			
+		#div1 #last{
+			left: 0px;
+			float: right;
+			position: absolute;
+			height: 300px;
+			line-height: 300px;
+		}
+			
+		#div1 #next{
+			right: 0px;
+			position: absolute;
+			height: 300px;
+			float: right;
+			line-height: 300px;
+		}
+		
+		
+	</style>
+</head>
+<body>
+	<div id="div1" onmouseover="over(this)" onmouseleave="leave(this)">
+		<ul>
+			<li><img src="img/img1.jpg" ></li>
+			<li><img src="img/img2.jpg" ></li>
+			<li><img src="img/img3.jpg" ></li>
+		</ul>
+		<div id="last"><span class="iconfont">&#xe601;</span></div>
+		<ol id="olId">
+			<li class="on"></li>
+			<li></li>
+			<li></li>
+		</ol>
+		<div id="next"><span class="iconfont">&#xe600;</span></div>
+	</div>
+	
+</body>
+</html>
+<script type="text/javascript">
+	var ul = document.getElementsByTagName('ul');
+	var ol = document.getElementById('olId');
+	var olLi = ol.getElementsByTagName('li');
+	
+	
+	for(var i = 0; i < olLi.length; i++){
+		olLi[i].index = i;
+		olLi[i].onclick = function(){
+			play(this.index);
+		}
+	}
+	
+	function play(imgIndex){
+		for(var j = 0;j < olLi.length;j++){
+			olLi[j].className = '';
+		}
+		olLi[imgIndex].className = 'on';
+		ul[0].style.transform = 'translateX('+(-500)*imgIndex+'px)';
+	}
+	
+	var next = document.getElementById('next');
+	var last = document.getElementById('last');
+	var n = 0;
+	
+	next.onclick = function(){
+		n++;
+		if(n >= olLi.length){
+			n = 0; 
+		}
+		play(n);
+	}
+	
+	last.onclick = function(){
+		if(n <= 0){
+			n = olLi.length; 
+		}
+		n--;
+		play(n);
+	}
+	
+	var sI = setInterval('document.getElementById("next").click()',2000);
+	
+	function over(x){
+		clearInterval(sI);
+	}
+	
+	function leave(x){
+		var sI = setInterval('document.getElementById("next").click()',2000);
+	}
+	
+</script>
